@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    <!-- 1. 변수 표현식 : ${...} -->
+    <!-- OGNL(Object-Graph Navigation Language) -->
+    <p th:text="${new java.util.Date().toString()}"></p>
+    <!-- Param -->
+    <p th:text="'message=' + ${message}"></p>
+
+    <!-- UtilObject  -->
+    <p th:text="${#strings.toUpperCase('devocean magic')}"></p>
+
+    <!-- 2. 메시지식 표현식 : #{...} -->
+    <!-- /src/main/resources 디렉토리 아래, messages.properties 추가 -->
+    <h3 th:text="#{msg.nickname}"></h3>
+    <p th:text="#{msg.rank}"></p>
+
+    <!-- 3. 링크 URL 표현식 : @{...} -->
+    <a th:href="@{'/devocean/' + ${message}}">magicworld</a>
+
+    <!-- 4. 선택 변수 표현식 : *{...} -->
+    <div th:object="${devOceanForm}">
+        <p th:text="*{nickname}"></p>
+        <p th:text="*{rank}"></p>
+    </div>
+    <!-- 5. 프래그먼트 표현식 : ~{...} -->
+    <div th:insert="~{/footer :: footerFragment}"></div>
+
+    <!-- 6. 리터럴 치환 : || -->
+    <div th:object="${devOceanForm}">
+        <p th:text="'nickname : ' + *{nickname} + ', rank : ' + *{rank}"></p>
+        <p th:text="|nickname : *{nickname}, rank : *{rank}|"></p>
+    </div>
+</body>
+</html>
